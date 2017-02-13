@@ -7,6 +7,35 @@ import java.util.Map;
 /**
  * Created by ak435s on 2/9/2017.
  */
+
+
+
+/*
+
+Matrix building logic:
+
+Traverse containment:
+    - on start (context-path, matrix):
+        -- push the local feature name to the path
+        -- get the full feature name
+        -- matrix += full name
+        -- create a sub-matrix
+        -- traverse inheritance ???????
+            <-- full name of the current node
+            --> matrix of inherited features
+        -- merge the inherited matrix to the Matrix
+
+    - on end:
+        -- pop name of the path
+
+
+Traverse inheritance:
+    - on start
+        -- traverse containment
+    - on end
+
+
+ */
 public class Feature {
     private String name;
     private Map<String, Feature> inheritedFeatures = new LinkedHashMap();
@@ -48,8 +77,16 @@ public class Feature {
         return this;
     }
 
+    public Map<String, Feature> getContainedFeatures() {
+        return containedFeatures;
+    }
+
     public Feature getContainedFeature(String featureName) {
         return containedFeatures.get( featureName);
+    }
+
+    public Map<String, Feature> getInheritedFeatures() {
+        return inheritedFeatures;
     }
 
     public String getName() {
